@@ -7,12 +7,12 @@ const UserSchema = new mongoose.Schema(
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String },
-    address: [{ detail: { type: String }, for: { type: String } }],
+    address: { type: String },
     phoneNumber: { type: Number },
     profilePicture: { type: String },
     Pets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
-    isPremium: { type: Boolean, required: true, default: false },
-    isPremiumPlus: { type: Boolean, required: true, default: false },
+    isPremium: { type: Boolean, default: false },
+    isPremiumPlus: { type: Boolean, default: false },
   },
   {
     timestamps: true,
@@ -40,7 +40,7 @@ UserSchema.statics.findByEmailAndPassword = async ({ email, password }) => {
     throw new Error("User does not exist");
   }
 
-  const doesPasswordMatch = await bcrypt.compare(password, user.password);
+  const doesPasswordMatch = bcrypt.compare(password, user.password);
 
   if (!doesPasswordMatch) {
     throw new Error("Invalid Password");

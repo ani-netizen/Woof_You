@@ -1,5 +1,5 @@
-import { NewsModel } from "./news";
-import { PetModel } from "./pet";
-import { UserModel } from "./user";
+import { NewsModel } from "./News";
+import { PetModel } from "./Pet";
+import { UserModel } from "./User";
 
 export {NewsModel, PetModel, UserModel}
