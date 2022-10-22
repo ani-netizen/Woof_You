@@ -1,6 +1,6 @@
 import express from "express";
 
-import { NewsModel } from "../../database/allModels";
+import { NewsModel, UserModel } from "../../database/allModels";
 
 const Router = express.Router();
 
@@ -25,14 +25,18 @@ Router.get("/", async (req, res) => {
 });
 
 Router.post("/add", async (req, res) => {
-    try {
-      const newPet = await NewsModel.create(req.body);
-  
-      return res.status(200).json({ newPet });
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
-    }
-  });
+  try {
+    const news = await NewsModel.create(req.body.newsDetails);
+
+    const user = await UserModel.findByIdAndUpdate(req.body.user, {
+      news: [news._id],
+    });
+
+    return res.status(200).json({ news, user });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 /*
 Route	      	| 	/
 Description	  | 	Get all the pets details based on the id 
@@ -53,7 +57,5 @@ Router.get("/:_id", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
-
-
 
 export default Router;

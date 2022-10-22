@@ -1,12 +1,23 @@
-import Navbar from "./components/Navbar";
-import TabGroup from "./components/TabGroup";
+import { Route, Navigate, Routes } from "react-router-dom";
+import HomeLayoutHoc from "./HOCs/Homepage.Hoc";
+import HomePage from "./pages/Homepage";
 
 function App() {
   return (
     <>
-    <h1 className="bg-slate-400 text-9xl font-bold flex flex-col">Woof You</h1>
-    <Navbar />
-    <TabGroup />
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={<Navigate to="/adoption" replace={true} />}
+        />
+        <Route
+          path="/:type/*"
+          exact
+          element={<HomeLayoutHoc component={HomePage} />}
+        />
+        {/* <HomeLayoutHoc exact component={HomePage} path="/:type" /> */}
+      </Routes>
     </>
   );
 }

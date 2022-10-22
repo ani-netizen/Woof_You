@@ -8,24 +8,24 @@ import classnames from "classnames";
 const MobileTabs = () => {
   const [allTypes] = useState([
     {
-      id: "delivery",
+      id: "adoption",
       icon: <RiShoppingBag3Line />,
-      name: "Delivery",
+      name: "Adoption",
     },
     {
-      id: "dining",
+      id: "companion",
       icon: <IoFastFoodOutline />,
-      name: "Dining",
+      name: "Companion",
     },
     {
-      id: "night",
+      id: "caring",
       icon: <BiDrink />,
-      name: "Night Life",
+      name: "Health Care",
     },
     {
-      id: "nutri",
+      id: "accessories",
       icon: <IoNutritionOutline />,
-      name: "Nutrition",
+      name: "Accessories",
     },
   ]);
 
@@ -35,19 +35,23 @@ const MobileTabs = () => {
     <>
       <div className="lg:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-between md:justify-evenly text-gray-500 border">
         {allTypes.map((item, index) => (
-          <>
-            <a key={index} href={`/${item.id}`} className="w-1/4">
+          <div key={index}>
+            <Link
+              to={`/${item.id}`}
+              className="w-1/4"
+              preventScrollReset={true}
+            >
               <div
                 className={
                   type === item.id
-                    ? "flex flex-col relative items-center text-lg text-zomRed-500"
+                    ? "flex flex-col relative items-center text-lg text-amber-500"
                     : "flex flex-col items-center text-lg"
                 }
               >
                 <div
                   className={
                     type === item.id
-                      ? "w-full h-full flex flex-col items-center border-t-2 px-1 py-2 text-center border-zomRed-400"
+                      ? "w-full h-full flex flex-col items-center border-t-2 px-1 py-2 text-center border-amber-400"
                       : "flex flex-col items-center"
                   }
                 >
@@ -55,8 +59,8 @@ const MobileTabs = () => {
                   <h5 className="text-xs">{item.name}</h5>
                 </div>
               </div>
-            </a>
-          </>
+            </Link>
+          </div>
         ))}
       </div>
     </>
@@ -66,40 +70,40 @@ const MobileTabs = () => {
 const LargeTabs = () => {
   const [allTypes] = useState([
     {
-      id: "delivery",
+      id: "adoption",
       imageDefault:
         "https://b.zmtcdn.com/data/o2_assets/246bbd71fbba420d5996452be3024d351616150055.png",
       imageActive:
         "https://b.zmtcdn.com/data/o2_assets/c0bb85d3a6347b2ec070a8db694588261616149578.png",
-      name: "Delivery",
+      name: "Adoption",
       activeColor: "yellow",
     },
     {
-      id: "dining",
+      id: "companion",
       imageDefault:
         "https://b.zmtcdn.com/data/o2_assets/78d25215ff4c1299578ed36eefd5f39d1616149985.png",
       imageActive:
         "https://b.zmtcdn.com/data/o2_assets/30fa0a844f3ba82073e5f78c65c18b371616149662.png",
       activeColor: "blue",
-      name: "Dining Out",
+      name: "Companion",
     },
     {
-      id: `night`,
+      id: `caring`,
       imageDefault:
         "https://b.zmtcdn.com/data/o2_assets/01040767e4943c398e38e3592bb1ba8a1616150142.png",
       imageActive:
         "https://b.zmtcdn.com/data/o2_assets/855687dc64a5e06d737dae45b7f6a13b1616149818.png",
       activeColor: "purple",
-      name: "Night life",
+      name: "Health Care",
     },
     {
-      id: `nutri`,
+      id: `accessories`,
       imageDefault:
         "https://b.zmtcdn.com/data/o2_assets/54cad8274d3c3ec7129e0808a13b27c31616582882.png",
       imageActive:
         "https://b.zmtcdn.com/data/o2_assets/0f6dcb1aef93fa03ea3f91f37918f3bc1616649503.png",
       activeColor: "yellow",
-      name: "Nutrition",
+      name: "Accessories",
     },
   ]);
 
@@ -109,40 +113,44 @@ const LargeTabs = () => {
     <>
       <div className="hidden bg-white lg:flex container px-5 my-8 mx-auto">
         {allTypes.map((item, index) => (
-          <a key={index} href={`/${item.id}`}>
-            <div
-              className={classnames(
-                "flex items-center pb-2 px-5 gap-2 transition duration-700 ease-in-out",
-                {
-                  "border-b-2 border-zomRed-400": type === item.id,
-                }
-              )}
-            >
+          <div key={index}>
+            <Link to={`/${item.id}`} preventScrollReset={true}>
               <div
                 className={classnames(
-                  "flex w-16 h-16 bg-gray-100 p-4 rounded-full",
+                  "flex items-center pb-2 px-5 gap-2 transition duration-700 ease-in-out",
                   {
-                    [`bg-${item.activeColor}-100`]: type === item.id,
+                    "border-b-2 border-amber-400": type === item.id,
                   }
                 )}
               >
-                <img
-                  src={type === item.id ? item.imageActive : item.imageDefault}
-                  alt={item.id}
-                  className="w-full h-full"
-                />
+                <div
+                  className={classnames(
+                    "flex w-16 h-16 bg-gray-100 p-4 rounded-full",
+                    {
+                      [`bg-${item.activeColor}-100`]: type === item.id,
+                    }
+                  )}
+                >
+                  <img
+                    src={
+                      type === item.id ? item.imageActive : item.imageDefault
+                    }
+                    alt={item.id}
+                    className="w-full h-full"
+                  />
+                </div>
+                <h3
+                  className={
+                    type === item.id
+                      ? "text-lg text-amber-400"
+                      : "text-lg text-gray-700"
+                  }
+                >
+                  {item.name}
+                </h3>
               </div>
-              <h3
-                className={
-                  type === item.id
-                    ? "text-lg text-zomRed-400"
-                    : "text-lg text-gray-700"
-                }
-              >
-                {item.name}
-              </h3>
-            </div>
-          </a>
+            </Link>
+          </div>
         ))}
       </div>
     </>

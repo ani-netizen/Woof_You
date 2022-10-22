@@ -1,6 +1,6 @@
 import express from "express";
 
-import { PetModel } from "../../database/allModels";
+import { PetModel, UserModel } from "../../database/allModels";
 import { ValidatePet } from "../../validation/pet";
 
 const Router = express.Router();
@@ -27,10 +27,14 @@ Router.get("/", async (req, res) => {
 
 Router.post("/add", async (req, res) => {
   try {
-    await ValidatePet( req.body)
-    const newPet = await PetModel.create(req.body);
+    await ValidatePet(req.body.petDetails);
+    const newPet = await PetModel.create(req.body.petDetails);
 
-    return res.status(200).json({ newPet });
+    const user = await UserModel.findByIdAndUpdate(req.body.user, {
+      pets: [newPet._id],
+    });
+
+    return res.status(200).json({ newPet, user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
