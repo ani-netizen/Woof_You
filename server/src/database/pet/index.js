@@ -5,6 +5,7 @@ const PetSchema = new mongoose.Schema(
     name: { type: String, required: true },
     detail: { type: String, required: true },
     isOpenToMate: { type: Boolean, required: true },
+    isOpenToAdopt: { type: Boolean, required: true },
     breed: { type: String, required: true },
     petPictures: [{ type: String, required: true }],
     age: { type: String, required: true },

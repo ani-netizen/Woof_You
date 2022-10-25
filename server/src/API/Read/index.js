@@ -1,24 +1,17 @@
 import express from "express";
 
-import { NewsModel, UserModel } from "../../database/allModels";
+import { ReadModel, UserModel } from "../../database/allModels";
 
 const Router = express.Router();
 
-/*
-Route	      	|	  /
-Description	  |	  Get all the pets details based on the city 
-Access	    	|	  Public
-Parameter	    |	  --
-Methods	    	|	  GET
-*/
 Router.get("/", async (req, res) => {
   try {
-    const news = await NewsModel.find();
+    const read = await ReadModel.find();
 
-    if (news.length === 0) {
-      return res.json({ error: "No news found in this city" });
+    if (read.length === 0) {
+      return res.json({ error: "No Read found in this city" });
     }
-    return res.json({ news });
+    return res.json({ read });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -26,28 +19,22 @@ Router.get("/", async (req, res) => {
 
 Router.post("/add", async (req, res) => {
   try {
-    const news = await NewsModel.create(req.body.newsDetails);
+    const read = await ReadModel.create(req.body.readDetails);
 
     const user = await UserModel.findByIdAndUpdate(req.body.user, {
-      news: [news._id],
+      read: [read._id],
     });
 
-    return res.status(200).json({ news, user });
+    return res.status(200).json({ read, user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
-/*
-Route	      	| 	/
-Description	  | 	Get all the pets details based on the id 
-Access	    	| 	Public
-Parameter	    |	  id
-Methods	    	| 	GET
-*/
+
 Router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    const restaurant = await NewsModel.findById(_id);
+    const restaurant = await ReadModel.findById(_id);
 
     if (!restaurant) {
       return res.status(400).json({ error: "No restaurant found for this id" });

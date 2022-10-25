@@ -1,6 +1,4 @@
 import { Route, Navigate, Routes } from "react-router-dom";
-import LogIn from "./components/Auth/LogIn";
-// import SignUp from "./components/Auth/SignUp";
 import HomeLayoutHoc from "./HOCs/Homepage.Hoc";
 import HomePage from "./pages/Homepage";
 
@@ -20,7 +18,6 @@ function App() {
         />
         {/* <HomeLayoutHoc exact component={HomePage} path="/:type" /> */}
       </Routes>
-      <LogIn />
     </>
   );
 }

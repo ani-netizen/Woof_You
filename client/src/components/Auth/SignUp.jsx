@@ -4,12 +4,18 @@ import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 // import { signUp } from "../../redux/reducers/auth/auth.action";
 
-export default function SignUp({ isOpen, setIsOpen }) {
+export default function SignUp({
+  isSignUpOpen,
+  setIsSignUpOpen,
+  isLogInOpen,
+  setIsLogInOpen,
+}) {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
     fullName: "",
     phoneNumber: null,
+    address: "",
   });
 
   //   const dispatch = useDispatch();
@@ -18,7 +24,7 @@ export default function SignUp({ isOpen, setIsOpen }) {
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 
   function closeModal() {
-    setIsOpen(false);
+    setIsSignUpOpen(false);
   }
 
   const submit = () => {
@@ -35,10 +41,10 @@ export default function SignUp({ isOpen, setIsOpen }) {
 
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isSignUpOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 auth__modals"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -71,13 +77,6 @@ export default function SignUp({ isOpen, setIsOpen }) {
             >
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="mt-2 flex flex-col gap-3 w-full">
-                  <button
-                    className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
-                    onClick={googleSignUp}
-                  >
-                    Sign Up with Google <FcGoogle />
-                  </button>
-
                   <form className="flex flex-col gap-5">
                     <div className="w-full flex flex-col gap-2">
                       <label htmlFor="fullName">Full Name:</label>
@@ -148,7 +147,25 @@ export default function SignUp({ isOpen, setIsOpen }) {
                         className="w-full text-center bg-amber-400 text-white py-2 rounded-lg"
                       />
                     </div>
+                    <p>
+                      Already have an account?{" "}
+                      <button
+                        onClick={() => {
+                          setIsSignUpOpen(false);
+                          setIsLogInOpen(true);
+                        }}
+                      >
+                        LogIn
+                      </button>
+                    </p>
                   </form>
+
+                  <button
+                    className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
+                    onClick={googleSignUp}
+                  >
+                    Sign Up with Google <FcGoogle />
+                  </button>
                 </div>
               </div>
             </Transition.Child>

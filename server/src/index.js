@@ -10,7 +10,7 @@ import privateRouteConfig from "./config/route.config";
 import Auth from "./API/Auth";
 import User from "./API/User";
 import Pet from "./API/Pet";
-import News from "./API/News";
+import Read from "./API/Read";
 
 googleConfig(passport);
 privateRouteConfig(passport);
@@ -25,7 +25,7 @@ woof_you.use(passport.initialize());
 woof_you.use("/auth", Auth);
 woof_you.use("/user", User);
 woof_you.use("/pet", Pet);
-woof_you.use("/news", News);
+woof_you.use("/read", Read);
 
 const PORT = process.env.PORT;
 

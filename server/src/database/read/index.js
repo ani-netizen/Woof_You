@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const NewsSchema = new mongoose.Schema(
+const ReadSchema = new mongoose.Schema(
   {
     headline: { type: String, required: true },
     content: { type: String, required: true },
@@ -12,4 +12,4 @@ const NewsSchema = new mongoose.Schema(
   }
 );
 
-export const NewsModel = mongoose.model("News", NewsSchema);
+export const ReadModel = mongoose.model("Read", ReadSchema);

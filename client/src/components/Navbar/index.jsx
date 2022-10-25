@@ -1,12 +1,16 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import LogIn from "../Auth/LogIn";
 
 function Navbar() {
+  const [isLogInOpen, setIsLogInOpen] = useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+
   return (
     <>
       <div
         className="flex justify-between items-center px-10 py-5 w-full shadow-md sticky top-0 bg-slate-50"
-        style={{ zIndex: "999" }}
+        style={{ zIndex: "10" }}
       >
         <div className="flex gap-20">
           <Link to="/">
@@ -22,9 +26,22 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          <button>Login/Signup</button>
+          <button
+            onClick={() => {
+              setIsLogInOpen(true);
+            }}
+          >
+            Login/Signup
+          </button>
         </div>
       </div>
+
+      <LogIn
+        isLogInOpen={isLogInOpen}
+        setIsLogInOpen={setIsLogInOpen}
+        isSignUpOpen={isSignUpOpen}
+        setIsSignUpOpen={setIsSignUpOpen}
+      />
     </>
   );
 }

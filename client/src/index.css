@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.auth__modals::-webkit-scrollbar {
+  display: none;
+}

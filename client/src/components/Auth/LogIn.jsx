@@ -2,21 +2,27 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import SignUp from "./SignUp";
 // import { signIn } from "../../redux/reducers/auth/auth.action";
 
-export default function LogIn({ isOpen, setIsOpen }) {
+export default function LogIn({
+  isLogInOpen,
+  setIsLogInOpen,
+  isSignUpOpen,
+  setIsSignUpOpen,
+}) {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
   const handleChange = (e) =>
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 
   function closeModal() {
-    setIsOpen(false);
+    setIsLogInOpen(false);
   }
 
   const submit = () => {
@@ -28,14 +34,14 @@ export default function LogIn({ isOpen, setIsOpen }) {
   };
 
   const googleSignIn = () =>
-    (window.location.href = "https://zomato-master-server.herokuapp.com/auth/google");
+    (window.location.href = "http://localhost:8080/auth/google");
 
   return (
     <>
-      <Transition appear show={true} as={Fragment}>
+      <Transition appear show={isLogInOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50 auth__modals"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -50,7 +56,6 @@ export default function LogIn({ isOpen, setIsOpen }) {
             >
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
-
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -68,13 +73,6 @@ export default function LogIn({ isOpen, setIsOpen }) {
             >
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="mt-2 flex flex-col gap-3 w-full">
-                  <button
-                    className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
-                    onClick={googleSignIn}
-                  >
-                    Sign In with Google <FcGoogle />
-                  </button>
-
                   <form className="flex flex-col gap-5">
                     <div className="w-full flex flex-col gap-2">
                       <label htmlFor="email">Email:</label>
@@ -106,13 +104,38 @@ export default function LogIn({ isOpen, setIsOpen }) {
                     >
                       Sign In
                     </div>
+                    <p>
+                      New to Woof You?{" "}
+                      <button
+                        onClick={() => {
+                          setIsLogInOpen(false);
+                          setIsSignUpOpen(true);
+                        }}
+                      >
+                        Create a account
+                      </button>
+                    </p>
                   </form>
+
+                  <button
+                    className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"
+                    onClick={googleSignIn}
+                  >
+                    Sign In with Google <FcGoogle />
+                  </button>
                 </div>
               </div>
             </Transition.Child>
           </div>
         </Dialog>
       </Transition>
+
+      <SignUp
+        isLogInOpen={isLogInOpen}
+        setIsLogInOpen={setIsLogInOpen}
+        isSignUpOpen={isSignUpOpen}
+        setIsSignUpOpen={setIsSignUpOpen}
+      />
     </>
   );
 }

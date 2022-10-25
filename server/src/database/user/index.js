@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema(
     phoneNumber: { type: Number },
     profilePicture: { type: String },
     pets: [{ type: mongoose.Types.ObjectId, ref: "Pets" }],
-    news: [{ type: mongoose.Types.ObjectId, ref: "News" }],
+    read: [{ type: mongoose.Types.ObjectId, ref: "read" }],
     isPremium: { type: Boolean, default: false },
     isPremiumPlus: { type: Boolean, default: false },
   },

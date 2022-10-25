@@ -1,7 +1,6 @@
 import joi from "joi";
 
-
-export const ValidateNews = (userData) => {
+export const ValidateRead = (userData) => {
   const Schema = joi.object({
     name: joi.string().required(),
     detail: joi.string().required(),
@@ -9,7 +8,7 @@ export const ValidateNews = (userData) => {
     isOpenToMate: joi.boolean().required(),
     breed: joi.string().required(),
     petPictures: joi.string().required(),
-    owner: joi.string()
+    owner: joi.string(),
   });
 
   return Schema.validateAsync(userData);

@@ -2,16 +2,8 @@ import express from "express";
 import passport from "passport";
 import { UserModel } from "../../database/allModels";
 
-
 const Router = express.Router();
 
-/*
-Route	      	|	  /
-Description	    |	Get authorized user data
-Access    		| 	Public
-Parameter   	| 	--
-Methods	    	| 	GET
-*/
 Router.get("/", passport.authenticate("jwt"), async (req, res) => {
   try {
     const { email, fullName, phoneNumber, address } =
@@ -23,13 +15,6 @@ Router.get("/", passport.authenticate("jwt"), async (req, res) => {
   }
 });
 
-/*
-Route		    | 	/:id
-Description 	|	  Get user data
-Access  		| 	Public
-Parameter   	|	  id
-Methods		    | 	GET
-*/
 Router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -47,13 +32,6 @@ Router.get("/:id", async (req, res) => {
   }
 });
 
-/*
-Route	      	|	  /update/:id
-Description	  |	  Update user data
-Access    		| 	Public
-Parameter   	| 	id
-Methods	    	| 	PUT
-*/
 Router.put("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
