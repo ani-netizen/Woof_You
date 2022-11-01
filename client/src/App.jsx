@@ -1,5 +1,7 @@
 import { Route, Navigate, Routes } from "react-router-dom";
 import HomeLayoutHoc from "./HOCs/Homepage.Hoc";
+import ProfileLayout from "./layouts/Profile.layout";
+import ReadLayout from "./layouts/Read.layout";
 import HomePage from "./pages/Homepage";
 
 function App() {
@@ -16,7 +18,8 @@ function App() {
           exact
           element={<HomeLayoutHoc component={HomePage} />}
         />
-        {/* <HomeLayoutHoc exact component={HomePage} path="/:type" /> */}
+        <Route path="/profile" exact element={<ProfileLayout />} />
+        <Route path="/read" exact element={<ReadLayout />} />
       </Routes>
     </>
   );

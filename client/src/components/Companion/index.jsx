@@ -1,81 +1,45 @@
-import React from "react";
+import axios from "axios";
+import { React, useEffect, useState } from "react";
 import Card from "../Card";
 
 function Companion() {
-  const cardData = [
+  const [companionData, setCompanionData] = useState([
     {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
+      userPicture: "",
+      petPicture: "",
+      userContact: "",
     },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-    {
-      petPicture:
-        "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-674010.jpg&fm=jpg",
-      userPicture: "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-      userContact: "8551958066",
-    },
-  ];
+  ]);
+
+  useEffect(() => {
+    axios({ method: "GET", url: "http://localhost:8080/pet/mates" }).then(
+      (pets) => {
+        pets.data?.pets.map((pet) => {
+          axios({
+            method: "GET",
+            url: `http://localhost:8080/user/${pet?.owner}`,
+          }).then((user) => {
+            setCompanionData((prev) => [
+              {
+                userPicture: user.data.user.profilePicture,
+                petPicture: pet.petPictures[0],
+                userContact: user.data.user.phoneNumber,
+              },
+              ...prev,
+            ]);
+          });
+
+          return null;
+        });
+      }
+    );
+  }, []);
 
   return (
     <>
       <div className="flex justify-center flex-wrap w-full gap-12">
-        {cardData.map((card, idx) => (
-          <div key={idx} className="w-11/12 md:w-1/3 lg:w-1/5">
+        {companionData?.map((card, idx) => (
+          <div key={idx} className="w-11/12 md:w-1/3 lg:w-1/5 hover:scale-110 hover:shadow-xl transition duration-500 hover:shadow-slate-400 rounded-2xl">
             <Card data={card} />
           </div>
         ))}

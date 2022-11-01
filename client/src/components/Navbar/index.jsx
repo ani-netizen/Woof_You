@@ -1,22 +1,30 @@
 import { React, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import authSlice from "../../redux/reducers/auth";
 import LogIn from "../Auth/LogIn";
 
 function Navbar() {
   const [isLogInOpen, setIsLogInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const reduxState = useSelector((globalState) => globalState.auth.user);
+
+  const logOut = () => dispatch(authSlice.actions.LOG_OUT());
+
   return (
     <>
       <div
-        className="flex justify-between items-center px-10 py-5 w-full shadow-md sticky top-0 bg-slate-50"
+        className="flex justify-between items-center lg:px-10 p-5 w-full shadow-md sticky top-0 bg-slate-50"
         style={{ zIndex: "10" }}
       >
         <div className="flex gap-20">
           <Link to="/">
             <div className="w-20 h-15 bg-amber-300">Woof You</div>
           </Link>
-          <ul className="flex gap-5 text-gray-600">
+          <ul className="md:flex gap-5 hidden text-gray-600">
             <li>
               <Link to="/read">Read</Link>
             </li>
@@ -26,13 +34,24 @@ function Navbar() {
           </ul>
         </div>
         <div>
-          <button
-            onClick={() => {
-              setIsLogInOpen(true);
-            }}
-          >
-            Login/Signup
-          </button>
+          {reduxState ? (
+            <Link to="/profile" className="">
+              <img
+                src={reduxState.profilePicture}
+                alt="user"
+                className="w-10 h-10 object-cover rounded-full object-center"
+              />
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                setIsLogInOpen(true);
+              }}
+              className="text-sm lg:text-base font-semibold"
+            >
+              Login/Signup
+            </button>
+          )}
         </div>
       </div>
 

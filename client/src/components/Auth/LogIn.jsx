@@ -1,9 +1,10 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import SignUp from "./SignUp";
-// import { signIn } from "../../redux/reducers/auth/auth.action";
+import { authSlice } from "../../redux/reducers/auth";
+import axios from "axios";
 
 export default function LogIn({
   isLogInOpen,
@@ -16,7 +17,7 @@ export default function LogIn({
     password: "",
   });
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (e) =>
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -25,12 +26,18 @@ export default function LogIn({
     setIsLogInOpen(false);
   }
 
-  const submit = () => {
-    // dispatch(signIn(userData));
+  const logIn = () => {
+    axios({
+      method: "POST",
+      url: "http://localhost:8080/auth/sign-in",
+      data: { credentials: userData },
+    }).then((res) => {
+      setUserData({ email: "", password: "" });
 
-    setUserData({ email: "", password: "" });
+      closeModal();
 
-    closeModal();
+      return dispatch(authSlice.actions.LOG_IN(res.data.user));
+    });
   };
 
   const googleSignIn = () =>
@@ -100,7 +107,7 @@ export default function LogIn({
                     </div>
                     <div
                       className="w-full text-center bg-amber-400 text-white py-2 rounded-lg"
-                      onClick={submit}
+                      onClick={logIn}
                     >
                       Sign In
                     </div>

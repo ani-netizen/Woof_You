@@ -6,12 +6,12 @@ const Router = express.Router();
 
 Router.get("/", async (req, res) => {
   try {
-    const read = await ReadModel.find();
+    const reads = await ReadModel.find();
 
-    if (read.length === 0) {
+    if (reads.length === 0) {
       return res.json({ error: "No Read found in this city" });
     }
-    return res.json({ read });
+    return res.json({ reads });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

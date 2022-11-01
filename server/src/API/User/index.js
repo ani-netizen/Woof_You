@@ -24,9 +24,7 @@ Router.get("/:id", async (req, res) => {
     if (!getUser) {
       return res.status(404).json({ error: "User not found" });
     }
-
-    const { fullName } = getUser;
-    return res.json({ user: { fullName } });
+    return res.json({ user: getUser });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

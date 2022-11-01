@@ -1,8 +1,9 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-// import { signUp } from "../../redux/reducers/auth/auth.action";
+import { authSlice } from "../../redux/reducers/auth";
+import axios from "axios";
 
 export default function SignUp({
   isSignUpOpen,
@@ -11,14 +12,14 @@ export default function SignUp({
   setIsLogInOpen,
 }) {
   const [userData, setUserData] = useState({
+    fullName: "",
     email: "",
     password: "",
-    fullName: "",
     phoneNumber: null,
     address: "",
   });
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (e) =>
     setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -27,17 +28,28 @@ export default function SignUp({
     setIsSignUpOpen(false);
   }
 
-  const submit = () => {
-    // dispatch(signUp(userData));
+  const signUp = () => {
+    axios({
+      method: "POST",
+      url: "http://localhost:8080/auth/sign-up",
+      data: { credentials: userData },
+    }).then((res) => {
+      setUserData({
+        email: "",
+        password: "",
+        fullName: "",
+        phoneNumber: "",
+        address: "",
+      });
 
-    setUserData({ email: "", password: "", fullName: "", phoneNumber: null });
+      closeModal();
 
-    closeModal();
+      dispatch(authSlice.actions.SIGN_UP(res.data.newUser));
+    });
   };
 
   const googleSignUp = () =>
-    (window.location.href =
-      "https://zomato-master-server.herokuapp.com/auth/google");
+    (window.location.href = "http://localhost:8080/auth/google");
 
   return (
     <>
@@ -143,7 +155,10 @@ export default function SignUp({
                       <input
                         value="Sign Up"
                         type="submit"
-                        onClick={submit}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          signUp();
+                        }}
                         className="w-full text-center bg-amber-400 text-white py-2 rounded-lg"
                       />
                     </div>

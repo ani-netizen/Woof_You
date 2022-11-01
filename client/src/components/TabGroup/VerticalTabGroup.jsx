@@ -33,32 +33,18 @@ const MobileTabs = () => {
 
   return (
     <>
-      <div className="lg:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-between md:justify-evenly text-gray-500 border">
+      <div className="lg:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-evenly text-gray-500 border">
         {allTypes.map((item, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            className="transition duration-300 py-1 hover:scale-110 font-bold hover:text-amber-500"
+          >
             <Link
               to={`/${item.id}`}
               className="w-1/4"
               preventScrollReset={true}
             >
-              <div
-                className={
-                  type === item.id
-                    ? "flex flex-col relative items-center text-lg text-amber-500"
-                    : "flex flex-col items-center text-lg"
-                }
-              >
-                <div
-                  className={
-                    type === item.id
-                      ? "w-full h-full flex flex-col items-center border-t-2 px-1 py-2 text-center border-amber-400"
-                      : "flex flex-col items-center"
-                  }
-                >
-                  {item.icon}
-                  <h5 className="text-xs">{item.name}</h5>
-                </div>
-              </div>
+              <h5 style={{ fontSize: "0.6rem" }}>{item.name}</h5>
             </Link>
           </div>
         ))}
@@ -111,28 +97,14 @@ const LargeTabs = () => {
 
   return (
     <>
-      <div className="hidden bg-white font-semibold lg:flex container px-5 my-5 mx-auto">
+      <div className="hidden bg-white md:flex fixed right-0 top-28 flex-col px-5 w-1/4">
         {allTypes.map((item, index) => (
-          <div key={index} className="hover:scale-110 transition duration-300">
+          <div
+            key={index}
+            className="border-b p-2 transition duration-300 hover:scale-110 font-bold hover:text-amber-500"
+          >
             <Link to={`/${item.id}`} preventScrollReset={true}>
-              <div
-                className={classnames(
-                  "flex items-center pb-2 px-5 gap-2 transition duration-300 ease-in-out",
-                  {
-                    "border-b-2 border-amber-400": type === item.id,
-                  }
-                )}
-              >
-                <h3
-                  className={
-                    type === item.id
-                      ? "text-lg text-amber-400"
-                      : "text-lg text-gray-700"
-                  }
-                >
-                  {item.name}
-                </h3>
-              </div>
+              <h3>{item.name}</h3>
             </Link>
           </div>
         ))}
@@ -141,7 +113,7 @@ const LargeTabs = () => {
   );
 };
 
-function TabGroup() {
+function VerticalTabGroup() {
   return (
     <>
       <div>
@@ -152,4 +124,4 @@ function TabGroup() {
   );
 }
 
-export default TabGroup;
+export default VerticalTabGroup;

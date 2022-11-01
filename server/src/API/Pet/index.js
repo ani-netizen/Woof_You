@@ -49,12 +49,12 @@ Router.get("/adopts", async (req, res) => {
 Router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    const restaurant = await PetModel.findById(_id);
+    const pets = await PetModel.findById(_id);
 
-    if (!restaurant) {
-      return res.status(400).json({ error: "No restaurant found for this id" });
+    if (!pets) {
+      return res.status(400).json({ error: "No pets found for this id" });
     }
-    return res.json({ restaurant });
+    return res.json({ pets });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

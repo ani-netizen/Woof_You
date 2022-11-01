@@ -20,7 +20,7 @@ Router.post("/sign-up", async (req, res) => {
     const newUser = await UserModel.create(req.body.credentials);
     const token = newUser.generateJwtToken();
 
-    return res.status(200).json({ token, status: "success" });
+    return res.status(200).json({ token, status: "success", newUser });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -39,7 +39,7 @@ Router.post("/sign-in", async (req, res) => {
     const user = await UserModel.findByEmailAndPassword(req.body.credentials);
     const token = user.generateJwtToken();
 
-    return res.status(200).json({ token, status: "success" });
+    return res.status(200).json({ token, status: "success", user });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
