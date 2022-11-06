@@ -95,39 +95,49 @@ function UpgradeOptions({ type }) {
 
   return (
     <>
-      <div className="border rounded-md p-5 flex w-2/7 flex-col items-center gap-2.5">
-        <h2>
-          {plan.title} <small>{plan.price ? `₹${plan.price}` : ""}</small>
+      <div className="border rounded-md p-7 flex w-2/7 flex-col items-center gap-8">
+        <h2 className="font-bold text-2xl">
+          {plan.title}{" "}
+          <small className="font-medium text-sm">
+            {plan.price ? `₹${plan.price}` : ""}
+          </small>
         </h2>
-        <p>
-          {plan.canAccessAdoption ? (
-            <TiTick className="text-green-500" />
-          ) : (
-            <TiTimes className="text-red-500" />
-          )}
-        </p>
-        <p>
-          {plan.canAccessLocations ? (
-            <TiTick className="text-green-500" />
-          ) : (
-            <TiTimes className="text-red-500" />
-          )}
-        </p>
-        <p>
-          {plan.canAccessCompanions ? (
-            <TiTick className="text-green-500" />
-          ) : (
-            <TiTimes className="text-red-500" />
-          )}
-        </p>
-        <p>
-          {plan.canAccessHealthCares ? (
-            <TiTick className="text-green-500" />
-          ) : (
-            <TiTimes className="text-red-500" />
-          )}
-        </p>
+        <div className="flex flex-col gap-3">
+          <p className="flex gap-5 items-center text-xs">
+            {plan.canAccessAdoption ? (
+              <TiTick className="text-green-500 text-base" />
+            ) : (
+              <TiTimes className="text-red-500 text-base" />
+            )}
+            Pets available for exchange
+          </p>
+          <p className="flex gap-5 items-center text-xs">
+            {plan.canAccessLocations ? (
+              <TiTick className="text-green-500 text-base" />
+            ) : (
+              <TiTimes className="text-red-500 text-base" />
+            )}
+            Locations of nearby vets and other shops
+          </p>
+          <p className="flex gap-5 items-center text-xs">
+            {plan.canAccessCompanions ? (
+              <TiTick className="text-green-500 text-base" />
+            ) : (
+              <TiTimes className="text-red-500 text-base" />
+            )}
+            Pets open for mating
+          </p>
+          <p className="flex gap-5 items-center text-xs">
+            {plan.canAccessHealthCares ? (
+              <TiTick className="text-green-500 text-base" />
+            ) : (
+              <TiTimes className="text-red-500 text-base" />
+            )}
+            Health and Diet Plan
+          </p>
+        </div>
         <button
+          className="font-semibold p-1 text-xl bg-amber-200 rounded px-2"
           onClick={() =>
             type === "pro"
               ? buyPremium()

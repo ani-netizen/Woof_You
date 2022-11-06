@@ -26,7 +26,9 @@ function Navbar() {
           </Link>
           <ul className="md:flex gap-5 hidden text-gray-600">
             <li>
-              <Link to="/read">Read</Link>
+              <Link to="/read" target="_blank" rel="noopener noreferrer">
+                Read
+              </Link>
             </li>
             <li>
               <Link to="/contact-us">Contact Us</Link>

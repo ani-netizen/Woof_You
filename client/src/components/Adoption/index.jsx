@@ -14,7 +14,7 @@ function Adoption() {
   useEffect(() => {
     axios({ method: "GET", url: "http://localhost:8080/pet/adopts" }).then(
       (pets) => {
-        pets.data.pets?.map((pet) => {
+        pets.data.pets?.forEach((pet) => {
           axios({
             method: "GET",
             url: `http://localhost:8080/user/${pet?.owner}`,
@@ -28,8 +28,6 @@ function Adoption() {
               ...prev,
             ]);
           });
-
-          return null;
         });
       }
     );
@@ -39,7 +37,10 @@ function Adoption() {
     <>
       <div className="flex justify-center flex-wrap w-full gap-12">
         {adoptionData?.map((card, idx) => (
-          <div key={idx} className="w-11/12 md:w-1/3 lg:w-1/5 hover:scale-110 hover:shadow-xl transition duration-500 hover:shadow-slate-400 rounded-2xl">
+          <div
+            key={idx}
+            className="w-11/12 md:w-1/3 lg:w-1/5 hover:scale-110 hover:shadow-xl transition duration-500 hover:shadow-slate-400 rounded-2xl"
+          >
             <Card data={card} />
           </div>
         ))}

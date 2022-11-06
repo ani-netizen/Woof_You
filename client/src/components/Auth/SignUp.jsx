@@ -44,7 +44,7 @@ export default function SignUp({
 
       closeModal();
 
-      dispatch(authSlice.actions.SIGN_UP(res.data.newUser));
+      dispatch(authSlice.actions.SIGN_UP(res.data.user));
     });
   };
 
@@ -165,6 +165,7 @@ export default function SignUp({
                     <p>
                       Already have an account?{" "}
                       <button
+                        className="text-blue-500 font-bold hover:underline"
                         onClick={() => {
                           setIsSignUpOpen(false);
                           setIsLogInOpen(true);

@@ -22,7 +22,7 @@ Router.post("/add", async (req, res) => {
     const read = await ReadModel.create(req.body.readDetails);
 
     const user = await UserModel.findByIdAndUpdate(req.body.user, {
-      read: [read._id],
+      $push: { read: read._id },
     });
 
     return res.status(200).json({ read, user });

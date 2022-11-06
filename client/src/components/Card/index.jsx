@@ -5,7 +5,7 @@ function Card(props) {
     <a
       href={`https://wa.me/+91${props.data.userContact}`}
       target="_blank"
-      rel="noreferrer"
+      rel="noreferrer noopener"
       className="w-1/4 relative h-40"
     >
       <div className="w-full h-full">

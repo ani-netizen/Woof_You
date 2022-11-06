@@ -11,34 +11,49 @@ function UserDetails() {
   const reduxState = useSelector((globalState) => globalState.auth.user);
   return (
     <>
-      <div className="flex w-full items-center">
+      <div className="flex items-center w-11/12">
         <div className="w-1/3">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDuE2ejpy-CjPVNdAhuIVch-8DRr20pvVwxs2pBWtl&s"
-            alt=""
+            src={reduxState?.profilePicture}
+            alt="user"
             className="w-40 h-40 rounded-full"
           />
         </div>
         <div className="flex justify-between items-center w-2/3">
-          <div className="flex flex-col">
-            <div>{reduxState?.fullName}</div>
+          <div className="flex flex-col gap-2">
+            <div className="font-bold">{reduxState?.fullName}</div>
             <div>{reduxState?.email}</div>
-            <button>Add Pet</button>
+            <button className="font-semibold">+ Add Pet</button>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             {reduxState?.isPremium === false &&
             reduxState?.isPremiumPlus === false ? (
-              <p>Free</p>
+              <p className="font-semibold">Free</p>
             ) : reduxState?.isPremium === true &&
               reduxState?.isPremiumPlus === false ? (
-              <p>Pro</p>
+              <p className="font-bold text-amber-500">Pro</p>
             ) : (
-              <p>
-                Pro<sup>+</sup>
+              <p className="font-extrabold text-transparent text-lg bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                Pro<sup className="font-extrabold text-transparent text-lg bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">+</sup>
               </p>
             )}
-            <button onClick={() => setIsUpgradeModalOpen(true)}>Upgrade</button>
-            <button onClick={() => dispatch(authSlice.actions.LOG_OUT())}>
+            {!(
+              reduxState?.isPremium === true &&
+              reduxState?.isPremiumPlus === true
+            ) ? (
+              <button
+                onClick={() => setIsUpgradeModalOpen(true)}
+                className="font-semibold text-sm py-1 px-2 bg-gradient-to-tr from-pink-200 to-blue-300 rounded text-slate-700"
+              >
+                Upgrade
+              </button>
+            ) : (
+              <></>
+            )}
+            <button
+              className="font-bold p-1 px-1 rounded-md bg-pink-100 text-slate-500"
+              onClick={() => dispatch(authSlice.actions.LOG_OUT())}
+            >
               LogOut
             </button>
           </div>
