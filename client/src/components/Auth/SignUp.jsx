@@ -121,6 +121,8 @@ export default function SignUp({
                       </label>
                       <input
                         type="tel"
+                        minLength="10"
+                        maxLength="10"
                         id="phoneNumber"
                         value={userData.phoneNumber}
                         onChange={handleChange}

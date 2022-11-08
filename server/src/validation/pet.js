@@ -10,7 +10,7 @@ export const ValidatePet = (userData) => {
     isMale: joi.boolean(),
     animalType: joi.string().required(),
     breed: joi.string().required(),
-    petPictures: joi.array().items(joi.string()).required(),
+    petPictures: joi.array().items(joi.string()),
     owner: joi.string().required(),
   });
 

@@ -9,13 +9,19 @@ function PetSection() {
   const reduxState = useSelector((globalState) => globalState.auth.user?.pets);
 
   useEffect(() => {
-    reduxState?.map((pet) => {
-      axios({
+    reduxState?.forEach(async (pet) => {
+      const petInfo = await axios({
         method: "GET",
         url: `http://localhost:8080/pet/${pet}`,
-      }).then((res) => setPets((prev) => [...prev, res.data.pets]));
+      });
+
+      setPets((prev) => [...prev, petInfo.data.pets]);
     });
   }, [reduxState]);
+  
+  const removePet = (petId) => {
+    axios()
+  }
 
   return (
     <>

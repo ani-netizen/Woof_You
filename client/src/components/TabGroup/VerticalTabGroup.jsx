@@ -33,7 +33,7 @@ const MobileTabs = () => {
 
   return (
     <>
-      <div className="lg:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-evenly text-gray-500 border">
+      <div className="md:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-evenly text-gray-500 border">
         {allTypes.map((item, index) => (
           <div
             key={index}

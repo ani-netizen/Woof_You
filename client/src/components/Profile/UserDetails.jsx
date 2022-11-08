@@ -2,9 +2,11 @@ import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import UpgradeModal from "../Upgrade/UpgradeModal";
 import { authSlice } from "../../redux/reducers/auth";
+import PetInfo from "../Pets/PetInfo";
 
 function UserDetails() {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+  const [isAddPetModalOpen, setIsAddPetModalOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,7 +25,12 @@ function UserDetails() {
           <div className="flex flex-col gap-2">
             <div className="font-bold">{reduxState?.fullName}</div>
             <div>{reduxState?.email}</div>
-            <button className="font-semibold">+ Add Pet</button>
+            <button
+              className="font-semibold"
+              onClick={() => setIsAddPetModalOpen(true)}
+            >
+              + Add Pet
+            </button>
           </div>
           <div className="flex flex-col gap-2">
             {reduxState?.isPremium === false &&
@@ -34,7 +41,10 @@ function UserDetails() {
               <p className="font-bold text-amber-500">Pro</p>
             ) : (
               <p className="font-extrabold text-transparent text-lg bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                Pro<sup className="font-extrabold text-transparent text-lg bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">+</sup>
+                Pro
+                <sup className="font-extrabold text-transparent text-lg bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                  +
+                </sup>
               </p>
             )}
             {!(
@@ -64,6 +74,7 @@ function UserDetails() {
         isOpen={isUpgradeModalOpen}
         setIsOpen={setIsUpgradeModalOpen}
       />
+      <PetInfo isOpen={isAddPetModalOpen} setIsOpen={setIsAddPetModalOpen} />
     </>
   );
 }

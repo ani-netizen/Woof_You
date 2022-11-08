@@ -33,7 +33,7 @@ const MobileTabs = () => {
 
   return (
     <>
-      <div className="lg:hidden bg-white fixed bottom-0 z-10 w-full flex items-center justify-between md:justify-evenly text-gray-500 border">
+      <div className="md:hidden bg-white fixed bottom-0 z-50 w-full flex items-center justify-between md:justify-evenly text-gray-500 border">
         {allTypes.map((item, index) => (
           <div key={index}>
             <Link
@@ -55,7 +55,6 @@ const MobileTabs = () => {
                       : "flex flex-col items-center"
                   }
                 >
-                  {item.icon}
                   <h5 className="text-xs">{item.name}</h5>
                 </div>
               </div>
@@ -111,7 +110,7 @@ const LargeTabs = () => {
 
   return (
     <>
-      <div className="hidden bg-white font-semibold lg:flex container px-5 my-5 mx-auto">
+      <div className="hidden bg-white font-semibold md:flex container px-5 my-5 mx-auto">
         {allTypes.map((item, index) => (
           <div key={index} className="hover:scale-110 transition duration-300">
             <Link to={`/${item.id}`} preventScrollReset={true}>

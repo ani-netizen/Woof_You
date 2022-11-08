@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import authSlice from "../../redux/reducers/auth";
 import LogIn from "../Auth/LogIn";
+import logo from "../../assets/logo.png";
 
 function Navbar() {
   const [isLogInOpen, setIsLogInOpen] = useState(false);
@@ -12,19 +13,19 @@ function Navbar() {
 
   const reduxState = useSelector((globalState) => globalState.auth.user);
 
-  const logOut = () => dispatch(authSlice.actions.LOG_OUT());
-
   return (
     <>
       <div
         className="flex justify-between items-center lg:px-10 p-5 w-full shadow-md sticky top-0 bg-slate-50"
-        style={{ zIndex: "10" }}
+        style={{ zIndex: "100" }}
       >
-        <div className="flex gap-20">
+        <div className="flex items-center gap-20">
           <Link to="/">
-            <div className="w-20 h-15 bg-amber-300">Woof You</div>
+            <div className="w-16">
+              <img src={logo} alt="logo" className="w-full h-full" />
+            </div>
           </Link>
-          <ul className="md:flex gap-5 hidden text-gray-600">
+          <ul className="md:flex md:items-center gap-5 h-full hidden text-gray-600">
             <li>
               <Link to="/read" target="_blank" rel="noopener noreferrer">
                 Read

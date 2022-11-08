@@ -114,6 +114,7 @@ export default function LogIn({
                     <p>
                       New to Woof You?{" "}
                       <button
+                        className="text-blue-500 font-bold hover:underline"
                         onClick={() => {
                           setIsLogInOpen(false);
                           setIsSignUpOpen(true);

@@ -20,6 +20,20 @@ Router.post("/add", async (req, res) => {
   }
 });
 
+Router.delete("/remove", async (req, res) => {
+  try {
+    await UserModel.findByIdAndUpdate(req.body.userId, {
+      $pop: { pets: req.body.petId },
+    });
+
+    await PetModel.findByIdAndDelete(req.body.petId);
+
+    return res.status(200).json("Pet Removed");
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 Router.get("/mates", async (req, res) => {
   try {
     const pets = await PetModel.find({ isOpenToMate: true });

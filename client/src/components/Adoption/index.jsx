@@ -5,9 +5,8 @@ import Card from "../Card";
 function Adoption() {
   const [adoptionData, setAdoptionData] = useState([
     {
-      userPicture: "",
-      petPicture: "",
-      userContact: "",
+      petDetails: "",
+      userDetails: "",
     },
   ]);
 
@@ -21,9 +20,8 @@ function Adoption() {
           }).then((user) => {
             setAdoptionData((prev) => [
               {
-                userPicture: user.data.user.profilePicture,
-                petPicture: pet.petPictures[0],
-                userContact: user.data.user.phoneNumber,
+                petDetails: pet,
+                userDetails: user.data.user,
               },
               ...prev,
             ]);
